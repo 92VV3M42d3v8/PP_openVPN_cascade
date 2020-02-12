@@ -1,107 +1,96 @@
-# OpenVPN Kaskadierungs-Script
+OpenVPN cascading script
 
-Die installierte Anwendung besteht aus insg. 3 Scripten und 2 Services welche ermöglichen, bei Nutzung eines kompatiblen VPN-Anbieters, eine automatische Kaskadierung auszuführen.
-Folgende Anbieter sind bekannt:
+The installed application consists of a total of 3 scripts and 2 services which, when using a compatible VPN provider, enable automatic cascading.
+The following providers are known:
 
-* [Perfect Privacy](https://www.perfect-privacy.com) --> getestet
-* [oVPN](https://vcp.ovpn.to/) --> ungetestet
-* [ZorroVPN](https://zorrovpn.com/) --> ungetestet
+* [Perfect Privacy] (https://www.perfect-privacy.com) -> tested
+* [oVPN] (https://vcp.ovpn.to/) -> untested
+* [ZorroVPN] (https://zorrovpn.com/) -> untested
 
 
-Durch Angabe einer maximalen Hopanzahl und einer min- sowie maxtime, können die Verbindungsparameter beinflusst werden.
+The connection parameters can be influenced by specifying a maximum number of hops and a min and max time.
 
-Innerhalb der Variablendeklaration können viele Parameter eigens angepasst werden.
+Many parameters can be customized within the variable declaration.
 
-## Durchführung
+## Execution
 
-Die folgende Anleitung beschreibt die Abhängigkeiten, Installation, Verzeichnisse sowie Anpassungsmöglichkeiten der Scripte und Dienste.
+The following instructions describe the dependencies, installation, directories and customization options for the scripts and services.
 
-### Abhängigkeiten
+### dependencies
 
-Grundsätzlich werden bei der Ausführung des Installationsscripts sämtliche, benötigte Pakete auf vorhandensein überprüft und bei Bedarf installiert.
-Dabei handelt es sich um folgende Pakete.
+Basically, when the installation script is executed, all required packages are checked for their presence and installed if necessary.
+These are the following packages.
 
-```
+`` `
 tmux
 openvpn
 resolvconf
 psmisc
 bc
-```
+`` `
 
-### Installation
+### installation
 
-Mit nur einem Befehl wird das Installationsscript gestartet - der Rest geschieht von ganz allein.
+The installation script is started with just one command - the rest is done on its own.
 
-```
-sudo bash -c "$(wget -qO - https://raw.githubusercontent.com/PrivateMemberPP/PP_openVPN_cascade/master/install_ovpn_cascading.sh)"
-```
-#### Erstinstallation
-Wenn es sich um eine Erstinstallation handelt, müssen die Hinweise im Terminalfenster beachtet werden.
+    sudo bash -c "$(wget -qO - https://raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/install_ovpn_cascading.sh)"
 
-#### Updateausführung
-Bei einem Update kann das Script genau wie bereits beschrieben ausgeführt werden.
-Es wird, anhand des Vorhandenseins des Hauptscripts, erkannt, dass es sich um ein Update handelt.
-Sämtliche Variablendeklaration werden aus dem bisher produktiven Script übernommen und in das neue eingetragen.
-Im Anschluss werden die Dienste wieder gestartet.
+#### First installation
+If this is a first-time installation, the instructions in the terminal window must be observed.
 
-### Deinstallation
-Auch die Deinstallation kann mit nur einem Befehl ausgeführt werden.
-Am Ende sind keine Verweise, Dienste oder Informationen (LOG's...) mehr vorhanden.
+#### Update execution
+With an update, the script can be executed exactly as already described.
+Based on the existence of the main script, it is recognized that this is an update.
+All variable declarations are taken from the previously productive script and entered in the new one.
+The services are then started again.
 
-```
-sudo bash -c "$(wget -qO - https://raw.githubusercontent.com/PrivateMemberPP/PP_openVPN_cascade/master/uninstall_ovpn_cascading.sh)"
-```
+### Uninstall
+The uninstallation can also be carried out with just one command.
+At the end there are no more references, services or information (LOG's ...).
 
-## Steuerung 
 
-### Dienstverwaltung
-Es gibt zwei Dienste für die folgenden Scripte:
-* Hauptscript
-* Watchdog-Script
+    sudo bash -c "$(wget -qO - https://raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/uninstall_ovpn_cascading.sh)"
 
-Steuerung des Hauptscripts über folgenden Dienstnamen:
-```
-openvpn-restart-cascading.service
-```
 
-Steuerung des Watchdog-Scripts über folgenden Dienstnamen:
-```
-openvpn-restart-cascading-watchdog.service
-```
+## control
 
-### Variablen deklarieren
-Es müssen lediglich die Variablen am Anfang des Hauptscripts definiert werden.
-Sämtliche Variablen, welche für das Watchdog-Script abhängig sind, werden beim Start des Scripts/Dienstes automatisch übernommen.
-Im Anschluss wird immer der Watchdog-Dienst neugestartet.
+Service management
+There are two services for the following scripts:
+* Main script
+* Watchdog script
 
-Das Hauptscript kann z.B. mit nano editiert werden:
-```
-sudo nano /etc/systemd/system/openvpn_service_restart_cascading.sh
-```
+Control of the main script using the following service names:
 
-Damit die Änderungen angewendet werden, muss der Dienst des Hauptscripts neugestartet werden, dies geschieht mit:
-```
-sudo systemctl restart openvpn-restart-cascading.service
-```
+    openvpn-restart-cascading.service
 
-Im Anschluss immer das LOG prüfen um zu sehen, dass die neuen Verbindungen aufgebaut werden:
-```
-less /var/log/ovpn_reconnect/vpnlog_restart.log
-```
+
+Control of the watchdog script using the following service names:
+
+    openvpn-restart-cascading-watchdog.service
+
+
+### Declare variables
+Only the variables at the beginning of the main script have to be defined.
+All variables that are dependent on the watchdog script are automatically adopted when the script / service is started.
+The watchdog service is then always restarted.
+
+The main script can e.g. can be edited with nano:
+
+    sudo nano /etc/systemd/system/openvpn_service_restart_cascading.sh
+
+
+In order for the changes to take effect, the main script service must be restarted using:
+
+    sudo systemctl restart openvpn-restart-cascading.service
+
+
+Then always check the LOG to see that the new connections are being established:
+
+    less /var/log/ovpn_reconnect/vpnlog_restart.log
+
 
 ## Built With
 
-* NotePad++
+* NotePad ++
 * Love ♥
 
-## Autoren
-
-* **Patrick Meinhardt**
-
-## Donate
-
-Möchtest du meine Arbeit unterstützen?
-Über eine kleine Donation an folgende PayPal.me-Adresse würde ich mich sehr freuen:
-
-[PayPal.me](https://www.paypal.me/patricklwl)
