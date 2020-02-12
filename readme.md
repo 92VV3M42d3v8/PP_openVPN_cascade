@@ -30,6 +30,39 @@ These are the following packages.
 
 
 ### installation
+Install following in Debian template
+
+    sudo apt-get install tmux
+
+    sudo apt-get install openvpn
+    
+    sudo apt-get install resolvconf
+    
+Now in VPN VM
+
+    sudo mkdir /rw/config/log/
+    
+    sudo mkdir -p /rw/config/systemd/system
+    
+    sudo mkdir /lib/systemd/system
+    
+    sudo mkdir /rw/config/openvpn
+    
+    sudo mkdir /rw/config/ovpn_reconnect/
+    
+    sudo mkdir /rw/config/openvpn/connections/
+    
+Now again in VPN VM
+
+    sudo mkdir -p /rw/config/qubes-bind-dirs.d
+    
+    sudo gedit /rw/config/qubes-bind-dirs.d/50_user.conf
+    
+Write following text
+
+    binds+=( '/lib/systemd' )
+
+Save and Reboot VM.
 
 The installation script is started with just one command - the rest is done on its own.
 
