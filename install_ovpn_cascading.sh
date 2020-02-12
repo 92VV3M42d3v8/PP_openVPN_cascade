@@ -1,138 +1,138 @@
 #!/bin/bash
 #
-### Variablen deklarieren
+### Declare variables
 #
-# Speicherort fuer dieses Installationslog
+# Location for this installation log
 install_log=/var/log/install_ovpn_cascade.log
 #
-# Pfad zur Ablage der Scripte
+# Path to script storage
 scriptpath_SVC=/etc/systemd/system
 #
-# Pfad zur Ablage der Service/Dienst-Dateien
+# Path to the storage of the service/service files
 servicepath=/lib/systemd/system
 #
-# Pfad zur Ablage des Kaskadierungsscripts
+# Path to store the cascading script
 scriptpath_UPD=/etc/openvpn
 #
-# Downloadlink Hauptscript
+# Downloadlink main script
 DL_PRIM_SCR=https://raw.githubusercontent.com/PrivateMemberPP/PP_openVPN_cascade/master/openvpn_service_restart_cascading.sh
 #
 # Downloadlink Watchdog-Script
 DL_WATC_SCR=https://raw.githubusercontent.com/PrivateMemberPP/PP_openVPN_cascade/master/openvpn_service_restart_cascading_watchdog.sh
 #
-# Downloadlink Hauptscript Service-Datei
+# Download link main script service file
 DL_PRIM_SRV=https://raw.githubusercontent.com/PrivateMemberPP/PP_openVPN_cascade/master/openvpn-restart-cascading.service
 #
-# Downloadlink Watchdog-Script Service-Datei
+# Download link watchdog script service file
 DL_WATC_SRV=https://raw.githubusercontent.com/PrivateMemberPP/PP_openVPN_cascade/master/openvpn-restart-cascading-watchdog.service
 #
-# Downloadlink PP Kaskadierungsscript
+# Downloadlink PP Cascading script
 DL_CASC_SCR=https://raw.githubusercontent.com/PrivateMemberPP/PP_openVPN_cascade/master/updown.sh
 #
-### ENDE Variablen deklarieren
+### Declare END variables
 
-### Funktionen ###
+### Functions ###
 function search_and_replace {
 	line_num=($(grep -n -m 1 $1 $2 | cut -d':' -f 1))
 	sed -i ""$line_num"s#.*#"$3"#" $4
 }
-### ENDE Funktionen ###
+### END Functions ###
 
-# grundsaetzlich davon ausgehen, dass KEIN Update durchgefuehrt wird
+# assume in principle that NO update will be carried out
 update_check=0
 
-# Bildschirm leeren
+# Clear the screen
 clear
 
-# LOG loeschen, falls vorhanden
+# Delete LOG, if present
 if [[ -f $install_log ]];
 then
 	rm $install_log
 fi
 
-printf "\n\nScript zur Installation der automatischen openVPN Kaskadierungsdienste" 2>&1 | tee -a $install_log
+printf "\n\nScript to install the automatic openVPN cascading services" 2>&1 | tee -a $install_log
 printf "\n----------------------------------------------------------------------\n\n" 2>&1 | tee -a $install_log
 
 if ! command -v dpkg >> /dev/null
 then
-	printf "Paketmanager 'dpkg' fehlt!" 2>&1 | tee -a $install_log
-	printf "\nBitte erst 'dpkg' installieren und im Anschluss das Script erneut ausfuehren." 2>&1 | tee -a $install_log
-	printf "\nDie Installation wird abgebrochen!" 2>&1 | tee -a $install_log
+	printf "Package manager 'dpkg' is missing!" 2>&1 | tee -a $install_log
+	printf "\nPlease install 'dpkg' first and then run the script again" 2>&1 | tee -a $install_log
+	printf "\nThe installation will be aborted!" 2>&1 | tee -a $install_log
 	printf "\n\n"
 	exit
 fi
 
-printf "... der Vorgang dauert weniger als eine Minute.\n\n" 2>&1 | tee -a $install_log
+printf "... the process takes less than a minute.\n\n" 2>&1 | tee -a $install_log
 
-# Paketdaten und Repository aktualisieren
+# Update package data and repository
 apt-get update -qq
 
-### notwendige Pakete installieren
-# pruefen, ob 'tmux' installiert ist -> falls nein, installieren!
+### Install necessary packages
+# check if 'tmux' is installed -> if not, install it!
 dpkg -l | grep ^ii | awk '{print $2}' | grep -w "tmux" > /dev/null
 
 if [ $? -eq "1" ];
 then
 	apt-get install tmux -qq > /dev/null
-	printf "==> tmux installiert!\n" 2>&1 | tee -a $install_log
+	printf "==> tmux installed!\n" 2>&1 | tee -a $install_log
 else
-	printf "==> tmux ist vorhanden!\n" 2>&1 | tee -a $install_log
+	printf "==> tmux is available!\n" 2>&1 | tee -a $install_log
 fi
 
-# pruefen, ob 'openvpn-client' installiert ist -> falls nein, installieren!
+# check if 'openvpn-client' is installed -> if not, install it!
 dpkg -l | grep ^ii | awk '{print $2}' | grep -w "openvpn" > /dev/null
 
 if [ $? -eq "1" ];
 then
 	apt-get install openvpn -qq > /dev/null
-	printf "==> openvpn installiert!\n" 2>&1 | tee -a $install_log
+	printf "==> openvpn installed!\n" 2>&1 | tee -a $install_log
 else
-	printf "==> openvpn ist vorhanden!\n" 2>&1 | tee -a $install_log
+	printf "==> openvpn is available!\n" 2>&1 | tee -a $install_log
 fi
 
-# pruefen, ob 'resolvconf' installiert ist -> falls nein, installieren!
+# check if 'resolvconf' is installed -> if not, install it!
 dpkg -l | grep ^ii | awk '{print $2}' | grep -w "resolvconf" > /dev/null
 
 if [ $? -eq "1" ];
 then
 	apt-get install resolvconf -qq > /dev/null
-	printf "==> resolvconf installiert!\n" 2>&1 | tee -a $install_log
+	printf "==> resolvconf installed!\n" 2>&1 | tee -a $install_log
 else
-	printf "==> resolvconf ist vorhanden!\n" 2>&1 | tee -a $install_log
+	printf "==> resolvconf is available!\n" 2>&1 | tee -a $install_log
 fi
 
-# pruefen, ob 'psmisc' installiert ist -> falls nein, installieren!
+# check if 'psmisc' is installed -> if not, install it!
 dpkg -l | grep ^ii | awk '{print $2}' | grep -w "psmisc" > /dev/null
 
 if [ $? -eq "1" ];
 then
 	apt-get install psmisc -qq > /dev/null
-	printf "==> psmisc installiert!\n" 2>&1 | tee -a $install_log
+	printf "==> psmisc installed!\n" 2>&1 | tee -a $install_log
 else
-	printf "==> psmisc ist vorhanden!\n" 2>&1 | tee -a $install_log
+	printf "==> psmisc is available!\n" 2>&1 | tee -a $install_log
 fi
 
-# pruefen, ob 'bc' installiert ist -> falls nein, installieren!
+# check if 'bc' is installed -> if not, install it!
 dpkg -l | grep ^ii | awk '{print $2}' | grep -w "bc" > /dev/null
 
 if [ $? -eq "1" ];
 then
 	apt-get install bc -qq > /dev/null
-	printf "==> bc installiert!\n\n" 2>&1 | tee -a $install_log
+	printf "==> bc installed!\n\n" 2>&1 | tee -a $install_log
 else
-	printf "==> bc ist vorhanden!\n" 2>&1 | tee -a $install_log
+	printf "==> bc is present!\n" 2>&1 | tee -a $install_log
 fi
 
-### notwendige Pakete installiert
+### necessary packages installed
 
-# in welchem Verzeichnis befinden wir uns?
+# What directory are we in #
 curdir="${PWD}"
 
-# Arbeitsverzeichnis erstellen
+# Create working directory
 mkdir $curdir'/'OVPN_SWITCH
 
-# Download der benoetigten Dateien
-# Dateinamen in variablen speichern
+# Download the required files
+# Save file names in variable
 wget -q -P $curdir'/OVPN_SWITCH/' $DL_PRIM_SCR > /dev/null
 FILE_DL_PRIM_SCR=($(echo $DL_PRIM_SCR | rev | cut -d '/' -f 1 | rev))
 wget -q -P $curdir'/OVPN_SWITCH/' $DL_WATC_SCR > /dev/null
@@ -144,7 +144,7 @@ FILE_DL_WATC_SRV=($(echo $DL_WATC_SRV | rev | cut -d '/' -f 1 | rev))
 wget -q -P $curdir'/OVPN_SWITCH/' $DL_CASC_SCR > /dev/null
 FILE_DL_CASC_SCR=($(echo $DL_CASC_SCR | rev | cut -d '/' -f 1 | rev))
 
-# falls ein Update durchgefuehrt wird, erstmal die Dienste beenden
+# if an update is performed, stop the services first
 systemctl --full --type service --all | grep -q openvpn-restart-cascading.service
 if [ $? -eq "0" ];
 then
@@ -159,8 +159,8 @@ fi
 
 sleep 2
 
-# die Dateien in den Zielverzeichnissen ablegen und zuvor prüfen, ob das Hauptscript schon vorhanden ist (im Falle eines Updates)
-# falls vorhanden, die Variablen zuvor in das neuen, heruntergeladene Script erst uebernehmen
+# place the files in the target directories and check first if the main script is already present (in case of an update)
+# if available, first transfer the variables into the new, downloaded script
 if [[ -f "$scriptpath_SVC/$FILE_DL_PRIM_SCR" ]];
 then
 	update_check=1
@@ -197,19 +197,19 @@ then
 
 fi
 
-# die Dateien in den Zielverzeichnissen ablegen
+# store the files in the target directories
 mv -f $curdir'/OVPN_SWITCH/'$FILE_DL_PRIM_SCR $scriptpath_SVC
 mv -f $curdir'/OVPN_SWITCH/'$FILE_DL_WATC_SCR $scriptpath_SVC
 mv -f $curdir'/OVPN_SWITCH/'$FILE_DL_PRIM_SRV $servicepath
 mv -f $curdir'/OVPN_SWITCH/'$FILE_DL_WATC_SRV $servicepath
 mv -f $curdir'/OVPN_SWITCH/'$FILE_DL_CASC_SCR $scriptpath_UPD
 
-# die Scripte ausfuehrbar machen
+# make the scripts executable
 chmod +x $scriptpath_SVC'/'$FILE_DL_PRIM_SCR
 chmod +x $scriptpath_SVC'/'$FILE_DL_WATC_SCR
 chmod +x $scriptpath_UPD'/'$FILE_DL_CASC_SCR
 
-# die Services ausfuehrbar machen und aktivieren
+# make the services executable and activate
 chmod +x $servicepath'/'$FILE_DL_PRIM_SRV
 chmod +x $servicepath'/'$FILE_DL_WATC_SRV
 
@@ -218,10 +218,10 @@ systemctl daemon-reload
 systemctl enable $FILE_DL_PRIM_SRV
 systemctl enable $FILE_DL_WATC_SRV
 
-# Arbeitsverzeichnis loeschen
+# Delete working directory
 rm -r $curdir'/'OVPN_SWITCH
 
-# Statusausgabe
+# Status output
 
 path_ovpn_conf=($(grep -m 1 'path_ovpn_conf=' $scriptpath_SVC'/'$FILE_DL_PRIM_SCR | rev | cut -d '=' -f 1 | rev))
 folder_logpath=($(grep -m 1 'folder_logpath=' $scriptpath_SVC'/'$FILE_DL_PRIM_SCR | rev | cut -d '=' -f 1 | rev))
@@ -229,15 +229,15 @@ folder_logpath=($(grep -m 1 'folder_logpath=' $scriptpath_SVC'/'$FILE_DL_PRIM_SC
 if [ $update_check -eq "1" ];
 then
 	printf "\n------------------------------------------------" 2>&1 | tee -a $install_log
-	printf "\nUpdate ERFOLGREICH abgeschlossen!" 2>&1 | tee -a $install_log
-	printf "\nDienste werden wieder gestartet!" 2>&1 | tee -a $install_log
+	printf "\nUpdate SUCCESSFULLY completed!" 2>&1 | tee -a $install_log
+	printf "\nServices will be restarted!" 2>&1 | tee -a $install_log
 	printf "\n------------------------------------------------" 2>&1 | tee -a $install_log
-	printf "\n\nPerfectPrivacy Konfigurationen befinden sich weiterhin im folgenden Verzeichnis:\n==> $path_ovpn_conf" 2>&1 | tee -a $install_log
-	printf "\nHinweis: es werden saemtliche Konfigurationen (*.conf) verwendet, welche sich in diesem Verzeichnis befinden!" 2>&1 | tee -a $install_log
-	printf "\n\nKEINE weitere Schritte notwendig!" 2>&1 | tee -a $install_log
+	printf "\n\nPerfectPrivacy configurations are still located in the following directory:\n==> $path_ovpn_conf" 2>&1 | tee -a $install_log
+	printf "\nNote: all configurations (*.conf) in this directory are used!" 2>&1 | tee -a $install_log
+	printf "\n\nOther steps necessary!" 2>&1 | tee -a $install_log
 	printf "\n---------------------------------" 2>&1 | tee -a $install_log
 
-	printf "\nDienstverwaltung über folgende Befehle:" 2>&1 | tee -a $install_log
+	printf "\nService management using the following commands:" 2>&1 | tee -a $install_log
 	printf "\n\t- sudo systemctl start|stop|restart openvpn-restart-cascading.service" 2>&1 | tee -a $install_log
 	printf "\n\t- sudo systemctl start|stop|restart openvpn-restart-cascading-watchdog.service" 2>&1 | tee -a $install_log
 
@@ -246,35 +246,32 @@ then
 else
 	eval mkdir -p $path_ovpn_conf
 	printf "\n------------------------------------------------" 2>&1 | tee -a $install_log
-	printf "\nInstallation ERFOLGREICH abgeschlossen!" 2>&1 | tee -a $install_log
-	printf "\nInstallierte Dienste noch NICHT gestartet!" 2>&1 | tee -a $install_log
+	printf "\nInstallation SUCCESSFULLY COMPLETED!" 2>&1 | tee -a $install_log
+	printf "\nInstalled services NOT yet started!" 2>&1 | tee -a $install_log
 	printf "\n------------------------------------------------" 2>&1 | tee -a $install_log
-	printf "\n\nPerfectPrivacy OpenVPN-Konfigurationen bitte im folgenden Verzeichnis hinterlegen:\n==> $path_ovpn_conf" 2>&1 | tee -a $install_log
-	printf "\nHinweis: es werden saemtliche Konfigurationen (*.conf) verwendet, welche sich in diesem Verzeichnis befinden!" 2>&1 | tee -a $install_log
-	printf "\n\nJetzt folgende Schritte ausfuehren!" 2>&1 | tee -a $install_log
-	printf "\nHinter dem ':' stehen die Befehle" 2>&1 | tee -a $install_log
+	printf "\n\nPerfectPrivacy OpenVPN configurations please store in the following directory:\n==> $path_ovpn_conf" 2>&1 | tee -a $install_log
+	printf "\nNote: all configurations (*.conf) in this directory are used" 2>&1 | tee -a $install_log
+	printf "\n\nnow perform the following steps!" 2>&1 | tee -a $install_log
+	printf "\nBehind the ':' are the commands" 2>&1 | tee -a $install_log
 	printf "\n-----------------------------------" 2>&1 | tee -a $install_log
-	printf "\n\nHerunterladen der PerfectPrivacy Konfigurationen" 2>&1 | tee -a $install_log
-	printf "\n\t- Wechsel in das Zielverzeichnis: cd $path_ovpn_conf" 2>&1 | tee -a $install_log
-	printf "\n\t- Herunterladen der Konfigurationen: sudo wget --content-disposition https://www.perfect-privacy.com/downloads/openvpn/get?system=linux" 2>&1 | tee -a $install_log
-	printf "\n\t- Die Dateien entpacken: sudo unzip -j linux_op24_udp_v4_AES256GCM_AU_in_ci.zip" 2>&1 | tee -a $install_log
-	printf "\nErzeugen einer Datei mit den Logindaten" 2>&1 | tee -a $install_log
-	printf "\n\t- Die Datei im Verzeichnis erstellen, in dem wir uns befinden: sudo nano $path_ovpn_conf"password.txt"" 2>&1 | tee -a $install_log
-	printf "\n\t- Logindaten in diese Datei eintragen: erste Zeile NUR den Nutzernamen, zweite Zeile NUR das Passwort" 2>&1 | tee -a $install_log
-	printf "\n\t- Datei speichern und schliessen: Strg+X -> dann mit 'J' oder 'y' bestaetigen" 2>&1 | tee -a $install_log
-	printf "\nEintragen der soeben erstellten 'password.txt' in die heruntergeladenen Configs" 2>&1 | tee -a $install_log
-	printf "%s\n\t- Alle Configs mit dem Pfad zur 'password.txt' editieren: sudo find *.conf -type f -exec sed -i %s""\"/auth-user-pass/c auth-user-pass $path_ovpn_conf"password.txt"\" {} \;" 2>&1 | tee -a $install_log
-	printf "\n\\nZum Abschluss muss noch das System neugestartet werden: sudo reboot" 2>&1 | tee -a $install_log
-	printf "\n\nDie installierten Dienste heißen 'openvpn-restart-cascading.service' und 'openvpn-restart-cascading-watchdog.service'" 2>&1 | tee -a $install_log
-	printf "\nDienstverwaltung über folgende Befehle:" 2>&1 | tee -a $install_log
+	printf "\n\nDownloading the PerfectPrivacy Configurations" 2>&1 | tee -a $install_log
+	printf "\n\t- Change to the target directory: cd $path_ovpn_conf" 2>&1 | tee -a $install_log
+	printf "\n\t- Download the configurations: sudo wget --content-disposition https://www.perfect-privacy.com/downloads/openvpn/get?system=linux" 2>&1 | tee -a $install_log
+	printf "\n\t- Extract the files: sudo unzip -j linux_op24_udp_v4_AES256GCM_AU_in_ci.zip" 2>&1 | tee -a $install_log
+	printf "\nCreate a file with the login data" 2>&1 | tee -a $install_log
+	printf "\n\t- Create the file in the directory where we are located: sudo nano $path_ovpn_conf"password.txt"" 2>&1 | tee -a $install_log
+	printf "\n\t- Enter login data in this file: first line ONLY the username, second line ONLY the password" 2>&1 | tee -a $install_log
+	printf "\n\t- Save and close file: Ctrl+X -> then confirm with 'J' or 'y'" 2>&1 | tee -a $install_log
+	printf "\nEntry the just created 'password.txt' into the downloaded Configs" 2>&1 | tee -a $install_log
+	printf "%s\n\t- Edit all configs with the path to 'password.txt': sudo find *.conf -type f -exec sed -i %s""\"/auth-user-pass/c auth-user-pass $path_ovpn_conf"password.txt"\" {} \;" 2>&1 | tee -a $install_log
+	printf "\n\\nFinally, the system needs to be rebooted: sudo reboot" 2>&1 | tee -a $install_log
+	printf "\n\nThe installed services are called 'openvpn-restart-cascading.service' and 'openvpn-restart-cascading-watchdog.service'" 2>&1 | tee -a $install_log
+	printf "\nService management using the following commands:" 2>&1 | tee -a $install_log
 	printf "\n\t- sudo systemctl start|stop|restart openvpn-restart-cascading.service" 2>&1 | tee -a $install_log
 	printf "\n\t- sudo systemctl start|stop|restart openvpn-restart-cascading-watchdog.service" 2>&1 | tee -a $install_log
-	printf "\n\nNach dem Neustart befindet sich das Logverzeichnis hier: $folder_logpath" 2>&1 | tee -a $install_log
-	printf "\n\nDieses Ausgabelog ist hier zu finden: $install_log" 2>&1 | tee -a $install_log
-	printf "\n\nEinige diese Schritte wurden der folgenden Anleitung entnommen: https://www.perfect-privacy.com/de/manuals/linux_openvpn_terminal" 2>&1 | tee -a $install_log
+	printf "\n\nAfter reboot the log directory is located here: $folder_logpath" 2>&1 | tee -a $install_log
+	printf "\n\nThis output log can be found here: $install_log" 2>&1 | tee -a $install_log
+	printf "\n\nSome of these steps were taken from the following instructions: https://www.perfect-privacy.com/de/manuals/linux_openvpn_terminal" 2>&1 | tee -a $install_log
 fi
 
-printf "\n\nMoechtest du meine Arbeit unterstuetzen?" 2>&1 | tee -a $install_log
-printf "\nUeber eine kleine Donation an folgende PayPal.me-Adresse wuerde ich mich sehr freuen:" 2>&1 | tee -a $install_log
-printf "\n\nhttps://www.paypal.me/patricklwl" 2>&1 | tee -a $install_log
-printf "\n\n------------------------------------------------\n\n" 2>&1 | tee -a $install_log
+
