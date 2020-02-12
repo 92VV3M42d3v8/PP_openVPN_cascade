@@ -31,7 +31,7 @@ function check_inactivity {
 	if grep "Inactivity timeout (--ping-restart), restarting" "$folder_logpath"log.vpnhop*
 	then
 		{
-			echo -e "\n----------ACHTUNG----------"
+			echo -e "\n----------ATTENTION----------"
 			echo -e "It's $(date) now"
 			echo -e "At least one server in the cascade is no longer reachable!"
 			echo -e "Restart services now to restore a safe state!"
@@ -85,7 +85,7 @@ function continuously_check {
 		if [ ! "$current_state" == "Wait" ];
 		then
 			{
-				echo -e "\n----------ACHTUNG----------"
+				echo -e "\n----------ATTENTION----------"
 				echo -e "It's $(date) now"
 				echo -e "Public IP has changed:\t$(wget -qO- icanhazip.com)"
 				echo -e "Restart services now to restore a safe state!"
