@@ -1,5 +1,5 @@
 [Unit]
-Description=Service für automatischen VPN (re)connect + Kaskadierung
+Description=Service for automatic VPN (re)connect + Cascading
 After=auditd.service systemd-user-sessions.service time-sync.target
 
 [Service]
