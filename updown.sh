@@ -1,6 +1,8 @@
 #!/bin/bash
 #
 # This script can be used as an up and down script for OpenVPN.
+# It adds and removes the routes required for a VPN connection cascaded over
+# multiple vpn servers provided by Perfect Privacy.
 #
 # Usage:
 #   Start OpenVPN with the following options:
@@ -60,6 +62,12 @@
 #      setting the environment variable 'disable_resolvconf'.
 #   --setenv redirect_output /path/to/file
 #      Redirect stdout and stderr to file.
+#
+# Support:
+#   Perfect Privacy <support@perfect-privacy.com>
+#
+# Maintainer:
+#   Simon Lange (Perfect Privacy)
 #
 # Changelog:
 #   1.0
