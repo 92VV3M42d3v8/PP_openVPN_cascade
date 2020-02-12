@@ -15,19 +15,19 @@ servicepath=/lib/systemd/system
 scriptpath_UPD=/etc/openvpn
 #
 # Downloadlink main script
-DL_PRIM_SCR=https://raw.githubusercontent.com/PrivateMemberPP/PP_openVPN_cascade/master/openvpn_service_restart_cascading.sh
+DL_PRIM_SCR=https://raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/openvpn_service_restart_cascading.sh
 #
 # Downloadlink Watchdog-Script
-DL_WATC_SCR=https://raw.githubusercontent.com/PrivateMemberPP/PP_openVPN_cascade/master/openvpn_service_restart_cascading_watchdog.sh
+DL_WATC_SCR=https://raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/openvpn_service_restart_cascading_watchdog.sh
 #
 # Download link main script service file
-DL_PRIM_SRV=https://raw.githubusercontent.com/PrivateMemberPP/PP_openVPN_cascade/master/openvpn-restart-cascading.service
+DL_PRIM_SRV=https://raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/openvpn-restart-cascading.service
 #
 # Download link watchdog script service file
-DL_WATC_SRV=https://raw.githubusercontent.com/PrivateMemberPP/PP_openVPN_cascade/master/openvpn-restart-cascading-watchdog.service
+DL_WATC_SRV=https://raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/openvpn-restart-cascading-watchdog.service
 #
 # Downloadlink PP Cascading script
-DL_CASC_SCR=https://raw.githubusercontent.com/PrivateMemberPP/PP_openVPN_cascade/master/updown.sh
+DL_CASC_SCR=https://raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/updown.sh
 #
 ### Declare END variables
 
