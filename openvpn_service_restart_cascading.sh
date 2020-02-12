@@ -63,7 +63,7 @@ function determine_server {
 function remux_server_list {
 	server_count="${#server_list[@]}"
 	random=$(shuf -i 0-$((server_count-1)) -n 1)
-	naechster_server=${server_list[$random]}
+	next_server=${server_list[$random]}
 	server_name=$(echo "$next_server" | cut -d '.' -f1)
 	unset 'server_list[$random]'
 	server_list_temp=("${server_list[@]}")
