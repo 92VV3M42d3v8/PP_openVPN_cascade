@@ -1,19 +1,19 @@
 #!/bin/bash
 #
-### Variablen deklarieren ###
+### Declare variables ###
 #
-# Pfad zur Ablage saemtlicher Logfiles des Hauptscripts
+# Path to the storage of all log files of the main script
 folder_logpath=/var/log/ovpn_reconnect/
 #
-# Logfile fuer dieses Watchdog-Script
+# Logfile for this watchdog script
 logfile_watchdog="$folder_logpath"watchdog_openvpn_reconnect.log
 #
-# Checkfile fuer den Watchdog-Service
+# Checkfile for the Watchdog service
 checkfile_watchdog="$folder_logpath"exitnode.log
 #
-### ENDE Variablen deklarieren ###
+### Declare END variables ###
 #
-### Definition von Funktionen ###
+### Definition of functions ###
 #
 function checkfile {
 	if [ -f "$checkfile_watchdog" ];
@@ -32,9 +32,9 @@ function check_inactivity {
 	then
 		{
 			echo -e "\n----------ACHTUNG----------"
-			echo -e "Es ist jetzt $(date)"
-			echo -e "Mindestens ein Server der Kaskade ist nicht mehr erreichbar!"
-			echo -e "Dienste nun neustarten, damit ein sicherer Zustand wiederhergestellt werden kann!"
+			echo -e "It's $(date) now"
+			echo -e "At least one server in the cascade is no longer reachable!"
+			echo -e "Restart services now to restore a safe state!"
 		} >> $logfile_watchdog
 		kill_primary_process
 	fi
@@ -65,11 +65,11 @@ function log_delete {
 function continuously_check {
 	while [ -f "$checkfile_watchdog" ]
 	do
-		# aktuellen Dateiinhalt in eine Variable speichern
+		# save current file content to a variable
 		get_state
 
-		echo -e "\n\nVerbindung besteht seit:\t\t$(date)" >> $logfile_watchdog
-		echo -e "mit oeffentlicher IP:\t\t\t$current_state" >> $logfile_watchdog
+		echo -e "\n\nconnection exists since:\t\t$(date)" >> $logfile_watchdog
+		echo -e "with public IP:\t\t\t$current_state" >> $logfile_watchdog
 
 		check_inactivity
 		check_state
@@ -82,13 +82,13 @@ function continuously_check {
 		done
 
 		get_state
-		if [ ! "$current_state" == "Warten" ];
+		if [ ! "$current_state" == "Wait" ];
 		then
 			{
 				echo -e "\n----------ACHTUNG----------"
-				echo -e "Es ist jetzt $(date)"
-				echo -e "Oeffentliche IP hat sich geaendert:\t$(wget -qO- icanhazip.com)"
-				echo -e "Dienste nun neustarten, damit ein sicherer Zustand wiederhergestellt werden kann!"
+				echo -e "It's $(date) now"
+				echo -e "Public IP has changed:\t$(wget -qO- icanhazip.com)"
+				echo -e "Restart services now to restore a safe state!"
 			} >> $logfile_watchdog
 			kill_primary_process
 			sudo rm $checkfile_watchdog
@@ -97,24 +97,24 @@ function continuously_check {
 	done
 }
 #
-### ENDE Definition von Funktionen ###
+### END Definition of functions ###
 #
-### HAUPTPROGRAMM ###
+### MAIN PROGRAM ###
 timeout=0
 
 while true
 do
-	# Wenn das LOG groesser als 20MB ist, dieses leeren
+	# If the LOG is larger than 20MB, empty this
 	log_delete
 
 	checkfile
 
 	case "$chkfl" in
-		# Datei existiert und kann kontinuierlich ausgewertet werden
+		# File exists and can be evaluated continuously
 		1)
 			get_state
 			case "$current_state" in
-				Warten)
+				Waiting)
 					sleep 5
 					timeout=0
 					;;
@@ -125,14 +125,14 @@ do
 			esac
 			;;
 
-		# Datei existiert noch nicht, erneut pruefen
+		# file does not exist yet, check again
 		0)
 
 			sleep 2
 			timeout=$(("timeout" + "2"))
 
-			# falls nach einem gewissen Counter die Datei noch nicht existiert, stimmt irgendwas nicht
-			# fuer diesen Fall den primaeren Prozess neustarten
+			# if after a certain counter the file does not yet exist, something is wrong
+			# Restart the primary process in this case
 			if [ "$timeout" -eq "10" ]
 			then
 				kill_primary_process
