@@ -21,13 +21,13 @@ The following instructions describe the dependencies, installation, directories 
 Basically, when the installation script is executed, all required packages are checked for their presence and installed if necessary.
 These are the following packages.
 
-`` `
-tmux
-openvpn
-resolvconf
-psmisc
-bc
-`` `
+
+    tmux
+    openvpn
+    resolvconf
+    psmisc
+    bc
+
 
 ### installation
 
