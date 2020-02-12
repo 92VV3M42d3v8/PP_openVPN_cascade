@@ -3,16 +3,16 @@
 ### Declare variables
 #
 # Location for this installation log
-install_log=/var/log/install_ovpn_cascade.log
+install_log=/rw/config/log/install_ovpn_cascade.log
 #
 # Path to script storage
-scriptpath_SVC=/etc/systemd/system
+scriptpath_SVC=/rw/config/systemd/system
 #
 # Path to the storage of the service/service files
 servicepath=/lib/systemd/system
 #
 # Path to store the cascading script
-scriptpath_UPD=/etc/openvpn
+scriptpath_UPD=/rw/config/openvpn
 #
 # Downloadlink main script
 DL_PRIM_SCR=https://raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/openvpn_service_restart_cascading.sh
