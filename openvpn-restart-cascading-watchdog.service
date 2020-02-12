@@ -1,5 +1,5 @@
 [Unit]
-Description=Watchdog-Service für automatischen VPN (re)connect
+Description=Watchdog-Service for automatic VPN (re)connect
 After=auditd.service systemd-user-sessions.service time-sync.target openvpn-restart-cascading.service
 
 [Service]
