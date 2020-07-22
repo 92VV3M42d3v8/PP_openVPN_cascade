@@ -1,4 +1,4 @@
-OpenVPN cascading script
+OpenVPN cascading script [Work in progress]
 
 The installed application consists of a total of 3 scripts and 2 services which, when using a compatible VPN provider, enable automatic cascading.
 The following providers are known:
