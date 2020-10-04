@@ -34,25 +34,12 @@ These are the following packages.
 ### installation
 Install following in Debian template
 
-    sudo apt-get install tmux
+    sudo apt-get install tmux openvpn resolvconf psmisc bc
 
-    sudo apt-get install openvpn
-    
-    sudo apt-get install resolvconf
-    
+
 Now in VPN VM
 
-    sudo mkdir /rw/config/log/
-    
-    sudo mkdir -p /rw/config/systemd/system
-    
-    sudo mkdir /lib/systemd/system
-    
-    sudo mkdir /rw/config/openvpn
-    
-    sudo mkdir /rw/config/ovpn_reconnect/
-    
-    sudo mkdir /rw/config/openvpn/connections/
+    sudo mkdir /rw/config/vpn/
     
 Now again in VPN VM
 
@@ -121,7 +108,7 @@ In order for the changes to take effect, the main script service must be restart
 
 Then always check the LOG to see that the new connections are being established:
 
-    less /var/log/ovpn_reconnect/vpnlog_restart.log
+    less /rw/config/vpn/vpnlog_restart.log
 
 
 ## Built With
