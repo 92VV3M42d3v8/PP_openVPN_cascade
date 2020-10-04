@@ -3,31 +3,31 @@
 # ## Declare variables
 #
 # Storage location for this installation log
-install_log = / var / log / install_ovpn_cascade.log
+install_log = / rw / config / vpn / install_ovpn_cascade.log
 #
 # Path for storing the scripts
-scriptpath_SVC = / etc / systemd / system
+scriptpath_SVC = / rw / config / vpn
 #
 # Path for storing the service files
-servicepath = / lib / systemd / system
+servicepath = / rw / config / vpn
 #
 # Path for storing the cascading script
-scriptpath_UPD = / etc / openvpn
+scriptpath_UPD = / rw / config / vpn
 #
 # Download link main script
-DL_PRIM_SCR = https: //raw.githubusercontent.com/PrivateMemberPP/PP_openVPN_cascade/master/openvpn_service_restart_cascading.sh
+DL_PRIM_SCR = https: //raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/openvpn_service_restart_cascading.sh
 #
 # Download link watchdog script
-DL_WATC_SCR = https: //raw.githubusercontent.com/PrivateMemberPP/PP_openVPN_cascade/master/openvpn_service_restart_cascading_watchdog.sh
+DL_WATC_SCR = https: //raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/openvpn_service_restart_cascading_watchdog.sh
 #
 # Download link main script service file
-DL_PRIM_SRV = https: //raw.githubusercontent.com/PrivateMemberPP/PP_openVPN_cascade/master/openvpn-restart-cascading.service
+DL_PRIM_SRV = https: //raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/openvpn-restart-cascading.service
 #
 # Download link watchdog script service file
-DL_WATC_SRV = https: //raw.githubusercontent.com/PrivateMemberPP/PP_openVPN_cascade/master/openvpn-restart-cascading-watchdog.service
+DL_WATC_SRV = https: //raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/openvpn-restart-cascading-watchdog.service
 #
 # Download link PP cascading script
-DL_CASC_SCR = https: //raw.githubusercontent.com/PrivateMemberPP/PP_openVPN_cascade/master/updown.sh
+DL_CASC_SCR = https: //raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/updown.sh
 #
 # ## END declare variables
 
@@ -69,59 +69,59 @@ apt-get update -qq
 
 # ## install necessary packages
 # check whether 'tmux' is installed -> if not, install!
-dpkg -l | grep ^ ii | awk ' {print $ 2} '  | grep -w " tmux "  > / dev / null
+#dpkg -l | grep ^ ii | awk ' {print $ 2} '  | grep -w " tmux "  > / dev / null
 
-if [ $?  -eq  " 1 " ] ;
-then
-	apt-get install tmux -qq > / dev / null
-	printf  " ==> tmux installed! \ n "  2> & 1  | tee -a $ install_log
-else
-	printf  " ==> tmux is available! \ n "  2> & 1  | tee -a $ install_log
-fi
+#if [ $?  -eq  " 1 " ] ;
+#then
+#	apt-get install tmux -qq > / dev / null
+#	printf  " ==> tmux installed! \ n "  2> & 1  | tee -a $ install_log
+#else
+#	printf  " ==> tmux is available! \ n "  2> & 1  | tee -a $ install_log
+#fi
 
 # check whether 'openvpn-client' is installed -> if not, install!
-dpkg -l | grep ^ ii | awk ' {print $ 2} '  | grep -w " openvpn "  > / dev / null
+#dpkg -l | grep ^ ii | awk ' {print $ 2} '  | grep -w " openvpn "  > / dev / null
 
-if [ $?  -eq  " 1 " ] ;
-then
-	apt-get install openvpn -qq > / dev / null
-	printf  " ==> openvpn installed! \ n "  2> & 1  | tee -a $ install_log
-else
-	printf  " ==> openvpn exists! \ n "  2> & 1  | tee -a $ install_log
-fi
+#if [ $?  -eq  " 1 " ] ;
+#then
+#	apt-get install openvpn -qq > / dev / null
+#	printf  " ==> openvpn installed! \ n "  2> & 1  | tee -a $ install_log
+#else
+#	printf  " ==> openvpn exists! \ n "  2> & 1  | tee -a $ install_log
+#fi
 
 # check whether 'resolvconf' is installed -> if not, install!
-dpkg -l | grep ^ ii | awk ' {print $ 2} '  | grep -w " resolvconf "  > / dev / null
+#dpkg -l | grep ^ ii | awk ' {print $ 2} '  | grep -w " resolvconf "  > / dev / null
 
-if [ $?  -eq  " 1 " ] ;
-then
-	apt-get install resolvconf -qq > / dev / null
-	printf  " ==> resolvconf installed! \ n "  2> & 1  | tee -a $ install_log
-else
-	printf  " ==> resolvconf exists! \ n "  2> & 1  | tee -a $ install_log
-fi
+#if [ $?  -eq  " 1 " ] ;
+#then
+#	apt-get install resolvconf -qq > / dev / null
+#	printf  " ==> resolvconf installed! \ n "  2> & 1  | tee -a $ install_log
+#else
+#	printf  " ==> resolvconf exists! \ n "  2> & 1  | tee -a $ install_log
+#fi
 
 # check whether 'psmisc' is installed -> if not, install!
-dpkg -l | grep ^ ii | awk ' {print $ 2} '  | grep -w " psmisc "  > / dev / null
+#dpkg -l | grep ^ ii | awk ' {print $ 2} '  | grep -w " psmisc "  > / dev / null
 
-if [ $?  -eq  " 1 " ] ;
-then
-	apt-get install psmisc -qq > / dev / null
-	printf  " ==> psmisc installed! \ n "  2> & 1  | tee -a $ install_log
-else
-	printf  " ==> psmisc exists! \ n "  2> & 1  | tee -a $ install_log
-fi
+#if [ $?  -eq  " 1 " ] ;
+#then
+#	apt-get install psmisc -qq > / dev / null
+#	printf  " ==> psmisc installed! \ n "  2> & 1  | tee -a $ install_log
+#else
+#	printf  " ==> psmisc exists! \ n "  2> & 1  | tee -a $ install_log
+#fi
 
 # check whether 'bc' is installed -> if not, install!
-dpkg -l | grep ^ ii | awk ' {print $ 2} '  | grep -w " bc "  > / dev / null
+#dpkg -l | grep ^ ii | awk ' {print $ 2} '  | grep -w " bc "  > / dev / null
 
-if [ $?  -eq  " 1 " ] ;
-then
-	apt-get install bc -qq > / dev / null
-	printf  " ==> bc installed! \ n \ n "  2> & 1  | tee -a $ install_log
-else
-	printf  " ==> bc exists! \ n "  2> & 1  | tee -a $ install_log
-fi
+#if [ $?  -eq  " 1 " ] ;
+#then
+#	apt-get install bc -qq > / dev / null
+#	printf  " ==> bc installed! \ n \ n "  2> & 1  | tee -a $ install_log
+#else
+#	printf  " ==> bc exists! \ n "  2> & 1  | tee -a $ install_log
+#fi
 
 # ## necessary packages installed
 
