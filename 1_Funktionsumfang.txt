@@ -1,30 +1,30 @@
-HAUPTSCRIPT
+MAIN SCRIPT
 -----------
 
-- automatische Anpassung der relevanten Variablen fuer das Watchdog-Script, wenn diese im Hauptscript geaendert werden
-- automatische Anpassung der maximalen HOP's im updown-Script, wenn diese im Hauptscript geaendert werden
-- Anzahl der HOP's kann variabel festgelegt werden (ACHTUNG: bei '8' wird es problematisch und die Verbindung wird z.T. nicht aufgebaut) => Empfehlung: '2' bis '4'
-- zufaellige Ermittlung einer Verbindungsdauer zwischen einer frei waehlbaren minimalen und maximalen Dauer
-- automatisches Clearing des Hauptscript-LOG's, wenn dieses über 20MB steigt
-- automatischer Aufbau der Anfangs definierten HOP's anhand der Configs, welche sich im frei definierbaren Verzeichnis befinden
-- zufaellige Auswahl der einzelnen HOP's unter Beruecksichtigung, dass je Sitzungsaufbau kein HOP doppelt verbunden wird
-- definierbares Timeout, wenn ein HOP nicht erreichbar ist -> im Anschluss naechsten zufaelligen Server nutzen
-- Ueberwachung der mindestens benoetigten, nutzbaren Server fuer Folgeverbindungen
-- Hinweis im LOG, falls mehr HOP's erwuenscht sind, als Configs vorhanden
-- Hinzuziehen des updown-Scripts zum Verbindungsaufbau ab dem 2. HOP
-- Anlage einer eigenen TMUX-Session je HOP
-- Ermittlung der scriptrelevanten Variablen anhand der jeweils aktuellen LOG's der einzelnen HOP's
-- bestehende Verbindungsueberpruefung anhand der zuletzt ermittelten oeffentlichen IP (icanhazip.com)
-- automatisches aufraeumen von 'innen nach außen', wenn die aktuelle Session abgelaufen ist und eine neue Session aufgebaut werden soll
-- sauberes und 'sprechendes' Logging in frei definierbaren Verzeichnissen
+- Automatic adaptation of the relevant variables for the watchdog script if these are changed in the main script
+- automatic adaptation of the maximum HOPs in the updown script, if these are changed in the main script
+- The number of HOPs can be set variably (ATTENTION: with '8' it becomes problematic and the connection is partly not established) => Recommendation: '2' to '4'
+- Random determination of a connection duration between a freely selectable minimum and maximum duration
+- Automatic clearing of the main script LOG when it rises above 20MB
+- automatic construction of the initially defined HOPs based on the configs, which are located in the freely definable directory
+- Random selection of the individual HOPs, taking into account that no HOP is connected twice per session
+- definable timeout if a HOP cannot be reached -> then use the next random server
+- Monitoring of the at least required, usable servers for follow-up connections
+- Note in the LOG if more HOPs are required than configs are available
+- Use the updown script to establish the connection from the 2nd HOP
+- Creation of a separate TMUX session per HOP
+- Determination of the script-relevant variables based on the current LOGs of the individual HOPs
+- Existing connection check based on the last public IP determined (icanhazip.com)
+- automatic tidying up from the 'inside out' when the current session has expired and a new session is to be established
+- clean and 'speaking' logging in freely definable directories
 
 
 WATCHDOG
 --------
 
-- stetige Ueberwachung der aktuellen Verbindung
-- Check auf aktuellen Status der Verbindung
-	- warten bei neuen Verbindungsaufbau, bis letzter HOP verbunden ist
-	- wenn alle HOP's verbunden sind, wird regelmaeßig die oeffentliche IP geprueft (icanhazip.com)
-	- wenn Ausgangsknoten sich aendert, soll das Hauptscript erneut abgearbeitet werden
-	- wenn ein Server der Kaskade nicht mehr erreichbar ist, soll das Hauptscript erneut abgearbeitet werden
+- constant monitoring of the current connection
+- Check the current status of the connection
+	- Wait when a new connection is established until the last HOP is connected
+	- when all HOPs are connected, the public IP is checked regularly (icanhazip.com)
+	- If the output node changes, the main script should be processed again
+	- If a server in the cascade can no longer be reached, the main script should be processed again
