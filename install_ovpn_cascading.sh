@@ -9,7 +9,7 @@ install_log=/rw/config/vpn/install_ovpn_cascade.log
 scriptpath_SVC=/rw/config/vpn
 #
 # Path for storing the service files
-servicepath=/lib/systemd/system
+servicepath=/rw/config/vpn/
 #
 # Path for storing the cascading script
 scriptpath_UPD=/rw/config/vpn
