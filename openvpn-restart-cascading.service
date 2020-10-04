@@ -1,16 +1,16 @@
 [Unit]
-Description=Service for automatic VPN (re)connect + Cascading
-After=auditd.service systemd-user-sessions.service time-sync.target
+Description = Service for automatic VPN (re) connect + cascading
+After = auditd.service systemd-user-sessions.service time-sync.target
 
 [Service]
-User=root
-TimeoutStartSec=0
-Type=simple
-KillMode=process
-ExecStart=/rw/config/systemd/system/openvpn_service_restart_cascading.sh
-Restart=always
-RestartSec=1
-LimitNOFILE=5555
+User = root
+TimeoutStartSec = 0
+Type = simple
+KillMode = process
+ExecStart = / rw / config / vpn / openvpn_service_restart_cascading.sh
+Restart = always
+RestartSec = 1
+LimitNOFILE = 5555
 
 [Install]
-WantedBy=multi-user.target
+WantedBy = multi-user.target
