@@ -5,9 +5,7 @@
 sudo apt-get install openvpn tmux bc psmisc resolvconf
 # Create folder path
 sudo mkdir /rw/config/vpn/
-# Create symlink
-ln -s /rw/config/vpn/openvpn-restart-cascading.service /lib/systemd/system/openvpn-restart-cascading.service
-ln -s /rw/config/vpn/openvpn-restart-cascading-watchdog.service /lib/systemd/system/openvpn-restart-cascading-watchdog.service
+
 # Storage location for this installation log
 install_log=/rw/config/vpn/install_ovpn_cascade.log
 #
@@ -15,7 +13,7 @@ install_log=/rw/config/vpn/install_ovpn_cascade.log
 scriptpath_SVC=/rw/config/vpn
 #
 # Path for storing the service files
-servicepath=/rw/config/vpn/
+servicepath=/lib/systemd/system
 #
 # Path for storing the cascading script
 scriptpath_UPD=/rw/config/vpn
