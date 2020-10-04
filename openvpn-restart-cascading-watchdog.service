@@ -1,17 +1,17 @@
 [Unit]
-Description = Watchdog service for automatic VPN (re) connect
-After = auditd.service systemd-user-sessions.service time-sync.target openvpn-restart-cascading.service
+Description=Watchdog service for automatic VPN (re) connect
+After=auditd.service systemd-user-sessions.service time-sync.target openvpn-restart-cascading.service
 
 [Service]
-User = root
-TimeoutStartSec = 0
-Type = simple
-KillMode = process
-ExecStart = /rw/config/vpn/openvpn_service_restart_cascading_watchdog.sh
-Restart = always
-RestartSec = 1
-LimitNOFILE = 5555
+User=root
+TimeoutStartSec=0
+Type=simple
+KillMode=process
+ExecStart=/rw/config/vpn/openvpn_service_restart_cascading_watchdog.sh
+Restart=always
+RestartSec=1
+LimitNOFILE=5555
 
 [Install]
-WantedBy = multi-user.target
+WantedBy=multi-user.target
 
