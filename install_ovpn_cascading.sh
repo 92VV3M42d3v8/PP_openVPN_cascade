@@ -3,31 +3,31 @@
 # ## Declare variables
 #
 # Storage location for this installation log
-install_log = /rw/config/vpn/install_ovpn_cascade.log
+install_log=/rw/config/vpn/install_ovpn_cascade.log
 #
 # Path for storing the scripts
-scriptpath_SVC = /rw/config/vpn
+scriptpath_SVC=/rw/config/vpn
 #
 # Path for storing the service files
-servicepath = /rw/config/vpn
+servicepath=/rw/config/vpn
 #
 # Path for storing the cascading script
-scriptpath_UPD = /rw/config/vpn
+scriptpath_UPD=/rw/config/vpn
 #
 # Download link main script
-DL_PRIM_SCR = https://raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/openvpn_service_restart_cascading.sh
+DL_PRIM_SCR=https://raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/openvpn_service_restart_cascading.sh
 #
 # Download link watchdog script
-DL_WATC_SCR = https://raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/openvpn_service_restart_cascading_watchdog.sh
+DL_WATC_SCR=https://raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/openvpn_service_restart_cascading_watchdog.sh
 #
 # Download link main script service file
-DL_PRIM_SRV = https://raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/openvpn-restart-cascading.service
+DL_PRIM_SRV=https://raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/openvpn-restart-cascading.service
 #
 # Download link watchdog script service file
-DL_WATC_SRV = https://raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/openvpn-restart-cascading-watchdog.service
+DL_WATC_SRV=https://raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/openvpn-restart-cascading-watchdog.service
 #
 # Download link PP cascading script
-DL_CASC_SCR = https://raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/updown.sh
+DL_CASC_SCR=https://raw.githubusercontent.com/92VV3M42d3v8/PP_openVPN_cascade/master/updown.sh
 #
 # ## END declare variables
 
