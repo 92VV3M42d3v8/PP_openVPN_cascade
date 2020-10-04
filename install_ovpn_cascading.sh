@@ -2,6 +2,11 @@
 #
 # ## Declare variables
 #
+# symlinks for QubesOS (It's WIP)
+ln -s /etc/systemd/system /rw/config/vpn/
+ln -s /lib/systemd/system /rw/config/vpn/
+ln -s /etc/openvpn /rw/config/vpn/
+
 # Storage location for this installation log
 install_log=/rw/config/vpn/install_ovpn_cascade.log
 #
@@ -203,11 +208,6 @@ mv -f $curdir'/OVPN_SWITCH/'$FILE_DL_WATC_SCR $scriptpath_SVC
 mv -f $curdir'/OVPN_SWITCH/'$FILE_DL_PRIM_SRV $servicepath
 mv -f $curdir'/OVPN_SWITCH/'$FILE_DL_WATC_SRV $servicepath
 mv -f $curdir'/OVPN_SWITCH/'$FILE_DL_CASC_SCR $scriptpath_UPD
-
-# symlinks for QubesOS (It's WIP)
-ln -s /etc/systemd/system /rw/config/vpn/
-ln -s /lib/systemd/system /rw/config/vpn/
-ln -s /etc/openvpn /rw/config/vpn/
 
 # make the scripts executable
 chmod +x $scriptpath_SVC'/'$FILE_DL_PRIM_SCR
