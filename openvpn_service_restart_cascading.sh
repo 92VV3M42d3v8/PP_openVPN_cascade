@@ -3,22 +3,22 @@
 # ## Declare variables ###
 #
 # Path to the storage of all log files of this script
-folder_logpath = / rw / config / vpn /
+folder_logpath = /rw/config/vpn/
 #
 # Log file name for this script (just change the name!)
 logfile_script = " $ folder_logpath " vpnlog_restart.log
 #
 # Path to the OpenVPN configs that should be used
-path_ovpn_conf = / rw / config / vpn / 
+path_ovpn_conf = /rw/config/vpn/ 
 #
 # Path to the updown cascading script
-path_ovpn_cascade_script = / rw / config / vpn / updown.sh
+path_ovpn_cascade_script = /rw/config/vpn/updown.sh
 #
 # Checkfile for the watchdog service (just change the name!)
 checkfile_watchdog = " $ folder_logpath " exitnode.log
 #
 # Path to the watchdog script file (openvpn_service_restart_cascading_watchdog.sh)
-scriptfile_watchdog = / rw / config / vpn / openvpn_service_restart_cascading_watchdog.sh
+scriptfile_watchdog = /rw/config/vpn/openvpn_service_restart_cascading_watchdog.sh
 #
 # minimum connection time in seconds
 mintime = 7200
