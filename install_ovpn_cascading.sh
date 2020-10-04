@@ -2,6 +2,7 @@
 #
 # ## Declare variables
 #
+sudo apt-get install openvpn tmux bc psmisc resolvconf
 # Create folder path
 sudo mkdir /rw/config/vpn/
 # Create symlink
