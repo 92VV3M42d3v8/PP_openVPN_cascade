@@ -1,9 +1,9 @@
-Durch die Einrichtung dieser Scripte und Services wird eine automatische OpenVPN-Konnektivitaet mit 1 oder mehr zufaelligen Servern fuer eine zufaellige Zeitspanne gewaehrleistet. Ein manuelles Verbinden mit einem oder mehreren HOP's ist somit nicht mehr notwendig. Durch die, nach Ablauf der Sitzungsdauer, wechselnden VPN-Standorte wird eine erweiterte Sicherheit gewaehrleistet. Das Hauptscript ist dazu ausgelegt, staendig zu arbeiten und die soeben beschriebene Funktion laufend zu wiederholen.
+By setting up these scripts and services, automatic OpenVPN connectivity with 1 or more random servers is guaranteed for a random period of time. A manual connection with one or more HOPs is therefore no longer necessary. As the VPN locations change after the session has expired, enhanced security is guaranteed. The main script is designed to work continuously and to repeat the function just described continuously.
 
-Als Einsatzbasis wird ein System mit einer Linuxdistribution als Betriebssystem erwartet. Getestet wurde die Konfiguration unter Debian Buster Headless Server.
+A system with a Linux distribution as the operating system is expected as the basis for use. The configuration was tested under Debian Buster Headless Server.
 
-Fuer die Verwendung wird empfohlen, zuvor saemtliche Verbindungen ins Internet per Firewall-Regeln zu sperren (kurze Anleitung ist vorhanden). Es muessen jedoch die Ports erlaubt werden, welche laut den genutzten OpenVPN-Configs fuer den Verbindungsaufbau benoetigt werden.
+For use, it is recommended to block all connections to the Internet using firewall rules beforehand (short instructions are available). However, the ports must be allowed which, according to the OpenVPN configs used, are required to establish the connection.
 
-Nach Einrichtung der Firewall-Regeln wird somit gewaehrleistet, dass keine Datenpakete ueber die physische(n) Schnittstelle(n) ins Internet gelangen (z.B. vor der Scriptausfuehrung; waehrend einer neuen Verbindung nach Ablauf der Sitzungsdauer; im Fehlerfall usw.).
+Once the firewall rules have been set up, this ensures that no data packets reach the Internet via the physical interface (s) (e.g. before the script is executed; during a new connection after the session has expired; in the event of an error, etc.).
 
-Somit eignet sich das Script auch optimal fuer die Verwendung auf einem Router, welcher mit einer Linux-Distribution arbeitet.
+Thus, the script is also ideal for use on a router that works with a Linux distribution.
