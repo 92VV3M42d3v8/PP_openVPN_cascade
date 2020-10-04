@@ -5,8 +5,8 @@
 # Create folder path
 sudo mkdir /rw/config/vpn/
 # Create symlink
-ln -s /lib/systemd/system/openvpn-restart-cascading.service /rw/config/vpn/openvpn-restart-cascading.service
-ln -s /lib/systemd/system/openvpn-restart-cascading-watchdog.service /rw/config/vpn/openvpn-restart-cascading-watchdog.service
+ln -s /rw/config/vpn/openvpn-restart-cascading.service /lib/systemd/system/openvpn-restart-cascading.service
+ln -s /rw/config/vpn/openvpn-restart-cascading-watchdog.service /lib/systemd/system/openvpn-restart-cascading-watchdog.service
 # Storage location for this installation log
 install_log=/rw/config/vpn/install_ovpn_cascade.log
 #
