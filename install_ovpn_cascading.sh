@@ -2,11 +2,6 @@
 #
 # ## Declare variables
 #
-# symlinks for QubesOS (It's WIP)
-ln -s /etc/systemd/system /rw/config/vpn/
-ln -s /lib/systemd/system /rw/config/vpn/
-ln -s /etc/openvpn /rw/config/vpn/
-
 # Storage location for this installation log
 install_log=/rw/config/vpn/install_ovpn_cascade.log
 #
