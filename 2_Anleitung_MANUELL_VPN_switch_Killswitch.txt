@@ -1,4 +1,4 @@
-Abhaengigkeit
+dependency
 -------------
 sudo apt-get install openvpn
 sudo apt-get install resolvconf
@@ -7,29 +7,29 @@ sudo apt-get install psmisc
 sudo apt-get install bc
 
 
-Anleitung
+manual
 ---------
-1.	a. die Shell-Datei (openvpn_service_restart_cascading.sh) z.B. wie folgt ablegen
+1. a. store the shell file (openvpn_service_restart_cascading.sh) as follows, for example
 		-> /etc/systemd/system/openvpn_service_restart_cascading.sh
 
-	b. die Watchdog-Shell-Datei (openvpn_service_restart_cascading_watchdog.sh) z.B. wie folgt ablegen
+	b. store the watchdog shell file (openvpn_service_restart_cascading_watchdog.sh) as follows, for example
 		-> /etc/systemd/system/openvpn_service_restart_cascading_watchdog.sh
 
-2. die Dateien ausführbar machen
+2. Make the files executable
 
-	a.	-> sudo chmod +x /etc/systemd/system/openvpn_service_restart_cascading.sh
+	a. -> sudo chmod + x /etc/systemd/system/openvpn_service_restart_cascading.sh
 
-	b.	-> sudo chmod +x /etc/systemd/system/openvpn_service_restart_cascading_watchdog.sh
+	b. -> sudo chmod + x /etc/systemd/system/openvpn_service_restart_cascading_watchdog.sh
 
-3. das updown-Script (updown.sh) z.B. wie folgt ablegen und hier auch die Rechte anpassen
+3. Store the updown script (updown.sh) as follows, for example, and adjust the rights here
 	-> /etc/openvpn/updown.sh
-		-> sudo chmod +x /etc/openvpn/updown.sh
+		-> sudo chmod + x /etc/openvpn/updown.sh
 
-4.	a. einen Service erstellen, welcher das Hauptscript startet und -bei Bedarf- restartet
+4. a. create a service that starts the main script and, if necessary, restarts it
 
-		-> cd /lib/systemd/system
+		-> cd / lib / systemd / system
 
-		-> neue Datei erstellen, z.B. mit dem Namen 'openvpn-restart-cascading.service' (schon vorbereitet)
+		-> create a new file, e.g. with the name 'openvpn-restart-cascading.service' (already prepared)
 
 		-> sudo chmod 777 openvpn-restart-cascading.service
 
@@ -39,11 +39,11 @@ Anleitung
 
 		-> sudo systemctl start openvpn-restart-cascading
 
-	b. einen Service erstellen, welcher das Watchdog-Script startet und -bei Bedarf- restartet
+	b. create a service that starts the watchdog script and, if necessary, restarts it
 
-		-> cd /lib/systemd/system
+		-> cd / lib / systemd / system
 
-		-> neue Datei erstellen, z.B. mit dem Namen 'openvpn-restart-cascading-watchdog.service' (schon vorbereitet)
+		-> create a new file, e.g. with the name 'openvpn-restart-cascading-watchdog.service' (already prepared)
 
 		-> sudo chmod 777 openvpn-restart-cascading-watchdog.service
 
@@ -54,6 +54,6 @@ Anleitung
 		-> sudo systemctl start openvpn-restart-cascading-watchdog
 
 
-5. die Firewall-Regeln implementieren, welche sich in der Datei "UFW_Firewall_regeln.txt" befinden
+5. Implement the firewall rules that are in the "UFW_Firewall_regel.txt" file
 
-6. es muss nur das Script 'openvpn_service_restart_cascading.sh' nach den eigenen Wünschen in den Variablendeklarationen angepasst werden!
+6. Only the script 'openvpn_service_restart_cascading.sh' has to be adapted according to your own requirements in the variable declarations!
