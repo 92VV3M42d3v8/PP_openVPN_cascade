@@ -3,7 +3,7 @@
 # ## Declare variables ###
 #
 # Path to the storage of all log files of the main script
-folder_logpath = / rw / config / vpn /
+folder_logpath = /rw/config/vpn/
 #
 # Log file for this watchdog script
 logfile_watchdog = " $ folder_logpath " watchdog_openvpn_reconnect.log
